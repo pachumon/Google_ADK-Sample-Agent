@@ -1,19 +1,22 @@
-# Google ADK Agent Sample
+# Google ADK Agent Sample with LiteLLM Integration
 
-A simple multi-tool agent built using Google's Agent Development Kit (ADK) that demonstrates weather and time query capabilities. This project showcases how to create, configure, and deploy an AI agent with custom tools using the Google ADK framework.
+A simple multi-tool agent built using Google's Agent Development Kit (ADK) integrated with LiteLLM for unified language model access. This project demonstrates weather and time query capabilities while showcasing how to integrate LiteLLM with the Google ADK framework for enhanced flexibility and model management.
 
 ## 🚀 Features
 
+- **LiteLLM Integration**: Unified interface for accessing Gemini models through LiteLLM
 - **Weather Information**: Get current weather reports for supported cities (New York)
 - **Time Queries**: Retrieve current time for specified cities (New York)
 - **Interactive Web UI**: Browser-based interface for testing and interaction
 - **Event Tracing**: Monitor function calls, responses, and execution flow
 - **Voice Support**: Optional voice interaction capabilities
-- **Gemini Integration**: Powered by Google's Gemini 2.0 Flash model
+- **Gemini Integration**: Powered by Google's Gemini 2.0 Flash model via LiteLLM
+- **Flexible Model Configuration**: Easy model switching and configuration management
 
 ## 🛠️ Technology Stack
 
 - **Google ADK**: Agent Development Kit for building AI agents
+- **LiteLLM**: Unified interface for multiple LLM providers
 - **Python 3.9+**: Core programming language
 - **Google Gemini API**: Large Language Model for natural language processing
 - **FastAPI**: Web framework for the development UI
@@ -45,24 +48,41 @@ A simple multi-tool agent built using Google's Agent Development Kit (ADK) that 
    pip install -r requirements.txt
    ```
 
-4. **Verify installation**
+4. **Configure environment variables**
    ```bash
-   pip show google-adk
+   # Check if configuration is properly set up
+   python check_config.py
    ```
+
+5. **Set up your Google API key**
+   - The `.env` file has been created with the required variables
+   - You need to add your Google API key to the `.env` file
 
 ## 🔧 Configuration
 
-The agent uses environment variables for configuration. Create a `.env` file in the `multi_tool_agent/` directory:
+The agent uses environment variables for configuration. The `.env` file in the root directory contains:
 
 ```env
 GOOGLE_GENAI_USE_VERTEXAI=FALSE
-GOOGLE_API_KEY=your_google_api_key_here
+GOOGLE_API_KEY=
+LITELLM_MODEL=gemini/gemini-2.0-flash-exp
 ```
 
-**How to get a Google API Key:**
-1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
-2. Create a new API key
-3. Copy the key and replace `your_google_api_key_here` in the `.env` file
+**Configuration Steps:**
+1. Get your Google API key from [Google AI Studio](https://aistudio.google.com/apikey)
+2. Open the `.env` file and add your API key:
+   ```env
+   GOOGLE_API_KEY=your_actual_api_key_here
+   ```
+3. Run the configuration checker:
+   ```bash
+   python check_config.py
+   ```
+
+**Configuration Options:**
+- `GOOGLE_API_KEY`: Your Google API key for Gemini access (required)
+- `LITELLM_MODEL`: LiteLLM model identifier (default: gemini/gemini-2.0-flash-exp)
+- `GOOGLE_GENAI_USE_VERTEXAI`: Set to TRUE to use Vertex AI instead of standard API
 
 **Security Best Practices:**
 - Never commit API keys to version control
@@ -75,13 +95,33 @@ GOOGLE_API_KEY=your_google_api_key_here
 ```
 google-adk-agent-sample/
 ├── multi_tool_agent/           # Main agent package
-│   ├── __init__.py            # Package initialization
-│   ├── agent.py               # Agent definition with tools
-│   └── .env                   # Environment configuration (not in git)
+│   ├── __init__.py            # Package initialization and exports
+│   ├── agent.py               # Main agent definition using LiteLLM
+│   ├── litellm_config.py      # LiteLLM configuration and setup
+│   ├── litellm_agent.py       # Custom agent wrapper for LiteLLM integration
+│   └── tools/                 # Tool implementations
+│       ├── __init__.py        # Tools package initialization  
+│       ├── weather_tool.py    # Weather information tool
+│       └── time_tool.py       # Time information tool
+├── .env                       # Environment configuration (not in git)
 ├── .gitignore                 # Git ignore rules
+├── check_config.py            # Configuration validation utility
 ├── requirements.txt           # Python dependencies
 └── README.md                  # Project documentation
 ```
+
+## 🔍 LiteLLM Integration Details
+
+**Why LiteLLM?**
+- **Unified Interface**: Single API for multiple LLM providers
+- **Easy Model Switching**: Change models without rewriting code
+- **Better Error Handling**: Standardized error responses across providers
+- **Future-Proof**: Easy to add support for other LLM providers
+
+**Architecture:**
+1. **LiteLLMConfig**: Manages configuration and API key setup
+2. **LiteLLMAgent**: Custom agent wrapper that inherits from Google ADK Agent
+3. **Integration Layer**: Bridges LiteLLM calls with ADK framework
 
 ## 🚀 Running the Agent
 

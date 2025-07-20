@@ -10,3 +10,5 @@ mode: agent
     GOOGLE_GENAI_USE_VERTEXAI=FALSE
     GOOGLE_API_KEY=
 - always ask user for the GOOGLE_API_KEY if there is no value assigned for the key.
+- always activate virtual environment before running any python or pip commands.
+- always check if the virtual environment is activated before running any python or pip commands.

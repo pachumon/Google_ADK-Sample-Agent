@@ -1,5 +1,16 @@
 # GitHub Copilot Instructions for Google ADK Agent Sample
-
+---
+mode: agent
+---
+- always ask for confimration before adding any new pip packages.
+- always ask for confirmation before making any changes to the codebase.
+- always explain the changes in detail step by step and the rationale behind them.
+- always provide a summary of the changes made.
+- always ensure that the code is well-documented and follows best practices.
+- always generate a .env file with the below keys if one doesnt exist.
+    GOOGLE_GENAI_USE_VERTEXAI=FALSE
+    GOOGLE_API_KEY=
+- always ask user for the GOOGLE_API_KEY if there is no value assigned for the key.
 ## Project Overview
 
 This is a sample multi-tool agent built using Google's Agent Development Kit (ADK) that demonstrates weather and time query capabilities. The project showcases how to create, configure, and deploy an AI agent with custom tools using the Google ADK framework.
@@ -175,16 +186,4 @@ adk web  # Starts development server on localhost:8000
 
 This architecture provides a solid foundation for building multi-tool AI agents with Google ADK, emphasizing maintainability, extensibility, and robust error handling.
 
-## GitHub Copilot Instructions
----
-mode: agent
----
-- always ask for confimration before adding any new pip packages.
-- always ask for confirmation before making any changes to the codebase.
-- always explain the changes in detail step by step and the rationale behind them.
-- always provide a summary of the changes made.
-- always ensure that the code is well-documented and follows best practices.
-- always generate a .env file with the below keys if one doesnt exist.
-    GOOGLE_GENAI_USE_VERTEXAI=FALSE
-    GOOGLE_API_KEY=
-- always ask user for the GOOGLE_API_KEY if there is no value assigned for the key.
+
